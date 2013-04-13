@@ -1,0 +1,5 @@
+
+ckanext_datatable.egg-info
+*.pyc
+.project
+.pydevproject
