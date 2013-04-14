@@ -26,7 +26,7 @@ class WetDataTables(p.SingletonPlugin):
     def preview_template(self, context, data_dict):
         return 'wet_datatable.html'
 
-    def setup_template_variables(context, data_dict):
+    def setup_template_variables(self, context, data_dict):
         return
         
 # Next, using the information from the resource, need to call the action api to retrieve the resource and generate the web-boew-table.
