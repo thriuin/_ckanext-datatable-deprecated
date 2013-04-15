@@ -1,6 +1,8 @@
+import ckan as ckan
 import ckan.plugins as p
 import ckan.lib.helpers as h
 import ckan.model as model
+import json
 import webhelpers.html as html
 
 class WetDataTables(p.SingletonPlugin):
@@ -27,14 +29,11 @@ class WetDataTables(p.SingletonPlugin):
         return 'wet_datatable.html'
 
     def setup_template_variables(self, context, data_dict):
-        return
+        #import pdb;pdb.set_trace()
+        dsq_results = ckan.logic.get_action('datastore_search')(context, {'resource_id': data_dict['resource']['id']})
+        p.toolkit.c.dsfields = dsq_results['fields']
+        p.toolkit.c.dsrecords = dsq_results['records']
         
-# Next, using the information from the resource, need to call the action api to retrieve the resource and generate the web-boew-table.
-
-#  dsrecords = ckan.logic.get_action('datastore_search')(contect, {'resource_id': data_dict['id']})
-
-# Add the records to the context passed into the template
- 
-#  May also need to monkey patch CKAN to get rid of iframe #}
+#  May need to monkey patch CKAN to get rid of iframe #}
 
 
