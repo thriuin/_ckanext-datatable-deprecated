@@ -2,7 +2,7 @@
 
 {% block page %}
 
-{# h.debug_inspect(c['dsfields']) #}
+{# h.debug_inspect(dsfields) #}
 {# h.debug_inspect(c['dsrecords']) #}
 
 {# Next, using the information passed in from the plugin, create the header and rows dynamically. #}
@@ -12,7 +12,9 @@
   <thead>
     <tr>
       {% for field_name in c['dsfields'] %}
-        <th>{{field_name['id']}}</th>
+        {% if field_name['id'] != '_id' %}
+          <th>{{field_name['id']}}</th>
+        {% endif %}
       {% endfor %}
     </tr>
   </thead>
@@ -20,7 +22,9 @@
     {% for ds_rec in c['dsrecords'] %}
       <tr>
         {% for field_name in c['dsfields'] %}
-          <td>{{ ds_rec[field_name['id']] }}</td>
+          {% if field_name['id'] != '_id' %}
+            <td>{{ ds_rec[field_name['id']] }}</td>
+          {% endif %}
         {% endfor %}
       </tr>
     {% endfor %}
