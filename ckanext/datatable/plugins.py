@@ -11,7 +11,7 @@ class WetDataTables(p.SingletonPlugin):
     """      
     p.implements(p.IConfigurer)
     p.implements(p.IResourcePreview, inherit=True)
-
+    p.implements(p.ITemplateHelpers)
 
     def update_config(self, config):
         ''' Set up the resource library, public directory and
@@ -34,8 +34,15 @@ class WetDataTables(p.SingletonPlugin):
         dsq_results = ckan.logic.get_action('datastore_search')(context, {'resource_id': data_dict['resource']['id']})
         p.toolkit.c.dsfields = dsq_results['fields']
         p.toolkit.c.dsrecords = dsq_results['records']
+        
+    def get_helpers(self):
+      return {'get_datapreview': self.get_datapreview}
 
-      
+    def get_datapreview(self, res_id):
+     
+        #import pdb; pdb.set_trace()
+        dsq_results = ckan.logic.get_action('datastore_search')({}, {'resource_id': res_id})
+        return h.snippet('wet_datatable.html', ds_fields=dsq_results['fields'], ds_records=dsq_results['records'])     
 
 
 

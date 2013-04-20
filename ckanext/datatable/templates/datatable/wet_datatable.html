@@ -1,27 +1,28 @@
-{% extends "dataviewer/base.html" %}
 
-{% block page %}
-
-{# h.debug_inspect(dsfields) #}
-{# h.debug_inspect(c['dsrecords']) #}
+{{ h.debug_inspect(ds_fields) }}
+{# h.debug_inspect(ds_records)) #}
 
 {# Next, using the information passed in from the plugin, create the header and rows dynamically. #}
 
-
-<table class="wet-boew-tables">
+<section>
+  <div class="tsrw-overflow">
+    <h2 id="prtable">{{_("Preview")}}</h2>
+<table id="tsrw" class="wet-boew-tables" data-wet-boew='{"bZebra": true, "bPaginate": true}' data-role="table" data-mode="columntoggle">
   <thead>
-    <tr>
-      {% for field_name in c['dsfields'] %}
+    <tr class="font-small">
+      {% set i = 1 %}
+      {% for field_name in ds_fields %}
         {% if field_name['id'] != '_id' %}
-          <th>{{field_name['id']}}</th>
+          <th scope="col" data-priority="arb-{{i}}">{{field_name['id']}}</th>
         {% endif %}
+        {% set i = i + 1 %}
       {% endfor %}
     </tr>
   </thead>
   <tbody>
-    {% for ds_rec in c['dsrecords'] %}
+    {% for ds_rec in ds_records %}
       <tr>
-        {% for field_name in c['dsfields'] %}
+        {% for field_name in ds_fields %}
           {% if field_name['id'] != '_id' %}
             <td>{{ ds_rec[field_name['id']] }}</td>
           {% endif %}
@@ -30,8 +31,5 @@
     {% endfor %}
   </tbody>
 </table>
-
-{% resource 'ckanext-wet/wet_base' %} 
-{% resource 'ckanext-wet/ckan' %}
-      
-{% endblock %}
+  </div>
+</section>
