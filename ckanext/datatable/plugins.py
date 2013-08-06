@@ -21,10 +21,7 @@ class WetDataTables(p.SingletonPlugin):
 
     def can_preview(self, data_dict):
         # if the resource is in the datastore then we can preview it with the datatable
-        if data_dict['resource'].get('datastore_active'):
-            return True
-        else:
-            return False
+        return data_dict['resource'].get('datastore_active'):
 
     def preview_template(self, context, data_dict):
         return 'wet_datatable.html'
