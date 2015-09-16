@@ -1,5 +1,5 @@
-ckanext-datatable
-=================
+(Deprecated) ckanext-datatable
+==============================
 
 This is a CKAN extension that requires the WET-BOEW extension for CKAN 
 (https://github.com/open-data/ckanext-wet-boew) and the core Datastore CKAN
